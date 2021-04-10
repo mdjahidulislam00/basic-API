@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>JSON (javascript object Notation) </h1>
+    <ul id='users-container'>
+
+    </ul>
+    <div class='container'>
+        <input id='id' type="number" placeholder='type your id'>
+        <br>
+        <br>
+        <input id='title' type="text" placeholder='type your title'>
+        <br>
+        <br>
+        <input id='body-contain' type="text" placeholder='type your body'>
+        <br>
+        <br>
+        <button id='submit'>Send</button>
+    </div>
+
+    <script>
+
+        document.getElementById('submit').addEventListener('click', function () {
+            const id = document.getElementById('id').value;
+            const title = document.getElementById('title').value;
+            const bodyContain = document.getElementById('body-contain').value;
+
+            const newPost = {
+                title: title,
+                jahid: bodyContain,
+                userId: id
+            }
+            pushDataToServer(newPost);
+        })
+
+        //TO POST DATA TO JSON SERVER
+        function pushDataToServer(firstPost) {
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                body: JSON.stringify(firstPost),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        }
+
+        //TO GATE DATA FORM JSON SERVER
+        // fetch('https://jsonplaceholder.typicode.com/users')
+        //     .then(response => response.json())
+        //     .then(json => userInformation(json))
+
+        // const ul = document.getElementById('users-container');
+
+        // function userInformation(users) {
+        //     const user = users.map(users => users.address.city);
+        //     for (let i = 0; i < user.length; i++) {
+        //         let userName = user[i];
+        //         const li = document.createElement('li')
+        //         li.innerText = userName;
+        //         ul.appendChild(li);
+        //     }
+        // }
+    </script>
+</body>
+
+</html>
